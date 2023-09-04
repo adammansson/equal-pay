@@ -26,11 +26,10 @@ def getTransactionsRecursive(xs: Vector[Participant]): Vector[Transaction] =
     case _ => Vector()
 
 def participantsFromInput: Vector[Participant] =
-  io.StdIn.readLine() match
-    case "" => Vector()
-    case input => 
-      val splitInput = input.split(" ")
-      Participant(splitInput(0), splitInput(1).toDouble) +: participantsFromInput
+  io.StdIn.readLine().split(" ").toVector match
+    case Vector(name, balance) => 
+      Participant(name, balance.toDouble) +: participantsFromInput
+    case _ => Vector()
 
 @main def run: Unit = 
   getTransactions(participantsFromInput).foreach(println)
